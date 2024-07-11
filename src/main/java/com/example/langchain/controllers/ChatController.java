@@ -29,4 +29,9 @@ public class ChatController {
         return chatService.streamChat(prompt);
     }
 
+    @GetMapping(value = "/stream-assistant", produces = "text/event-stream")
+    public Flux<String> streamAssistant(@RequestParam String prompt) {
+        return chatService.streamAssistant(prompt);
+    }
+
 }

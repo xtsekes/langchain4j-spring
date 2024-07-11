@@ -1,5 +1,6 @@
 package com.example.langchain.service;
 
+import com.example.langchain.config.Assistant;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.model.StreamingResponseHandler;
 import dev.langchain4j.model.chat.ChatLanguageModel;
@@ -13,10 +14,12 @@ public class ChatService {
 
     private final ChatLanguageModel chatLanguageModel;
     private final StreamingChatLanguageModel streamingChatLanguageModel;
+    private final Assistant assistant;
 
-    public ChatService(ChatLanguageModel chatLanguageModel, StreamingChatLanguageModel streamingChatLanguageModel) {
+    public ChatService(ChatLanguageModel chatLanguageModel, StreamingChatLanguageModel streamingChatLanguageModel, Assistant assistant) {
         this.chatLanguageModel = chatLanguageModel;
         this.streamingChatLanguageModel = streamingChatLanguageModel;
+        this.assistant = assistant;
     }
 
     public String chat(String prompt) {
@@ -37,6 +40,18 @@ public class ChatService {
                 sink.tryEmitError(error);
             }
         });
+
+        return sink.asFlux();
+    }
+
+    public Flux<String> streamAssistant(String prompt) {
+        Sinks.Many<String> sink = Sinks.many().unicast().onBackpressureBuffer();
+
+        assistant.streamChat(prompt)
+                .onNext(sink::tryEmitNext)
+                .onComplete(c -> sink.tryEmitComplete())
+                .onError(sink::tryEmitError)
+                .start();
 
         return sink.asFlux();
     }

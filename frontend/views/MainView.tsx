@@ -20,6 +20,9 @@ export default function MainView() {
                         <NavLink className={navLinkClasses} to="/stream-chat">
                             Stream Chat
                         </NavLink>
+                        <NavLink className={navLinkClasses} to="/stream-assistant">
+                            Stream Assistant
+                        </NavLink>
                     </nav>
                 </header>
             </div>
