@@ -21,12 +21,12 @@ public class ChatController {
 
     @GetMapping("/chat")
     public String chat(@RequestParam String prompt) {
-        return chatService.chat(prompt);
+        return chatService.chatModel(prompt);
     }
 
     @GetMapping(value = "/stream-chat", produces = "text/event-stream")
     public Flux<String> streamChat(@RequestParam String prompt) {
-        return chatService.streamChat(prompt);
+        return chatService.streamModel(prompt);
     }
 
     @GetMapping(value = "/stream-assistant", produces = "text/event-stream")
