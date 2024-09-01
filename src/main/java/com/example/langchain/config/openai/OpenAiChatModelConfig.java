@@ -23,6 +23,7 @@ public class OpenAiChatModelConfig {
                 .apiKey(apiKey)
                 .modelName(modelName)
                 .temperature(0.7)
+                .responseFormat("json_object")
                 .logRequests(true)
                 .logResponses(true)
                 .build();

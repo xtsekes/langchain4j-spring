@@ -23,6 +23,12 @@ export default function MainView() {
                         <NavLink className={navLinkClasses} to="/stream-assistant">
                             Stream Assistant
                         </NavLink>
+                        <NavLink className={navLinkClasses} to="/ingest-data">
+                            Ingest Data
+                        </NavLink>
+                        <NavLink className={navLinkClasses} to="/extract-data">
+                            Extract Data
+                        </NavLink>
                     </nav>
                 </header>
             </div>

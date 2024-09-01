@@ -23,6 +23,7 @@ public class OllamaChatModelConfig {
                 .baseUrl(baseURL)
                 .modelName(modelName)
                 .temperature(0.7)
+                .format("json")
                 .logRequests(true)
                 .logResponses(true)
                 .build();

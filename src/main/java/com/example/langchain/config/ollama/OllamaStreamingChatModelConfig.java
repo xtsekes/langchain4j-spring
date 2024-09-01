@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.time.Duration;
+
 @Configuration
 @Profile("dev")
 public class OllamaStreamingChatModelConfig {
@@ -25,6 +27,7 @@ public class OllamaStreamingChatModelConfig {
                 .temperature(0.7)
                 .logRequests(true)
                 .logResponses(true)
+                .timeout(Duration.ofHours(1))
                 .build();
     }
 }

@@ -3,6 +3,7 @@ package com.example.langchain.config;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
+import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.service.AiServices;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +12,16 @@ import org.springframework.context.annotation.Configuration;
 public class AiServicesConfig {
 
     @Bean
-    public Assistant assistant(ChatLanguageModel chatLanguageModel, StreamingChatLanguageModel streamingChatLanguageModel) {
+    public Assistant assistant(
+            ChatLanguageModel chatLanguageModel,
+            StreamingChatLanguageModel streamingChatLanguageModel,
+            ContentRetriever contentRetriever
+    ) {
         return AiServices.builder(Assistant.class)
                 .chatLanguageModel(chatLanguageModel)
                 .streamingChatLanguageModel(streamingChatLanguageModel)
                 .chatMemory(MessageWindowChatMemory.withMaxMessages(5))
+                .contentRetriever(contentRetriever)
                 .build();
     }
 }
